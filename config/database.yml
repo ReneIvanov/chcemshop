@@ -2,23 +2,20 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: chcemshop
+  username: postgres
   host: <%= ENV['RAILS_PG_HOST'] || 'localhost' %>
 
 development:
   <<: *default
-  database: chcemshop_development
-  password: '<%= Rails.application.credentials.dig(:postgres_password, :development) %>'
+  database: postgres
+  password: mysecretlocalpassword
 
 test:
   <<: *default
-  database: chcemshop_test
-  password: '<%= Rails.application.credentials.dig(:postgres_password, :development) %>'
+  database: postgres
+  password: mysecretlocalpassword
 
 production:
-  adapter: postgresql
-  host: <%= ENV['RAILS_PG_HOST'] %>
-  port: <%= ENV['RAILS_PG_PORT'] %>
-  database: <%= ENV['RAILS_PG_DATABASE'] %>
-  username: <%= ENV['RAILS_PG_USERNAME'] %>
-  password: <%= ENV['RAILS_PG_PASS'] %>
+  <<: *default
+  database: postgres
+  password: mysecretlocalpassword

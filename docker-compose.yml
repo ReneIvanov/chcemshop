@@ -1,0 +1,25 @@
+---
+version: "3.0"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: mysecretlocalpassword
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  web:
+    image: reneivanov/chcemshop:7
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_PG_HOST: db
+    depends_on:
+      - db
+    links:
+      - db
+volumes:
+  postgres:
